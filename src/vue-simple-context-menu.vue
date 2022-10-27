@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { getCurrentInstance } from 'vue';
 import vClickOutside from 'click-outside-vue3';
 
 export default {
@@ -22,7 +23,9 @@ export default {
   props: {
     elementId: {
       type: String,
-      required: true,
+      default: () => {
+        return `simple-context-menu__${getCurrentInstance().uid}`
+      }
     },
     options: {
       type: Array,
@@ -44,7 +47,7 @@ export default {
     showMenu(event, item) {
       this.item = item;
 
-      var menu = document.getElementById(this.elementId);
+      const menu = document.getElementById(this.elementId);
       if (!menu) {
         return;
       }

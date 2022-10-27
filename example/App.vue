@@ -108,7 +108,6 @@
     </div>
 
     <vue-simple-context-menu
-      element-id="myFirstMenu"
       :options="optionsArray1"
       ref="vueSimpleContextMenu1"
       @option-clicked="optionClicked1"
@@ -116,7 +115,6 @@
     </vue-simple-context-menu>
 
     <vue-simple-context-menu
-      element-id="mySecondMenu"
       :options="optionsArray2"
       ref="vueSimpleContextMenu2"
       @option-clicked="optionClicked2"
