@@ -1,5 +1,5 @@
 # vue-simple-context-menu
-
+Thanks to  [@johndatserakis](https://github.com/johndatserakis). This package is a forked from johndatserakis/vue-simple-context-menu
 Simple context-menu component built for Vue. Works well with both left and right clicks. Nothing too fancy, just works and is simple to use.
 
 <p align="left">
