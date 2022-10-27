@@ -1,11 +1,11 @@
 // Import vue component
-import component from './vue-simple-context-menu.vue';
+import component from './vue3-context-menu.vue';
 
 export function install(app) {
   if (install.installed) return;
 
   install.installed = true;
-  app.component('VueSimpleContextMenu', component);
+  app.component('Vue3ContextMenu', component);
 }
 
 const plugin = { install };

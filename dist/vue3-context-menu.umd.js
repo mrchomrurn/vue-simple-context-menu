@@ -16,11 +16,14 @@
 	});
 
 	var script = {
-	  name: 'VueSimpleContextMenu',
+	  name: 'Vue3ContextMenu',
 	  props: {
+	    modelValue: Boolean,
 	    elementId: {
 	      type: String,
-	      required: true,
+	      default: function () {
+	        return ("simple-context-menu__" + (vue.getCurrentInstance().uid))
+	      }
 	    },
 	    options: {
 	      type: Array,
@@ -31,72 +34,88 @@
 	  directives: {
 	    'click-outside': vClickOutside_umd.directive,
 	  },
-	  data: function data() {
-	    return {
-	      item: null,
-	      menuHeight: null,
-	      menuWidth: null,
-	    };
-	  },
-	  methods: {
-	    showMenu: function showMenu(event, item) {
-	      this.item = item;
+	  setup: function setup(props, ref$1) {
+	    var emit = ref$1.emit;
 
-	      var menu = document.getElementById(this.elementId);
+	    var item = vue.ref(null);
+	    var menuHeight = vue.ref(null);
+	    var menuWidth = vue.ref(null);
+
+	    vue.onMounted(function () {
+	      document.body.addEventListener('keyup', onEscKeyRelease);
+	    });
+
+	    vue.onUnmounted(function () {
+	      document.removeEventListener('keyup', onEscKeyRelease);
+	    });
+
+	    var showMenu = function (event, item) {
+	      item.value = item;
+
+	      var menu = document.getElementById(props.elementId);
 	      if (!menu) {
 	        return;
 	      }
 
-	      if (!this.menuWidth || !this.menuHeight) {
+	      if (!menuWidth.value || !menuHeight.value) {
 	        menu.style.visibility = 'hidden';
 	        menu.style.display = 'block';
-	        this.menuWidth = menu.offsetWidth;
-	        this.menuHeight = menu.offsetHeight;
+	        menuWidth.value = menu.offsetWidth;
+	        menuHeight.value = menu.offsetHeight;
 	        menu.removeAttribute('style');
 	      }
 
-	      if (this.menuWidth + event.pageX >= window.innerWidth) {
-	        menu.style.left = event.pageX - this.menuWidth + 2 + 'px';
+	      if (menuWidth.value + event.pageX >= window.innerWidth) {
+	        menu.style.left = event.pageX - menuWidth.value + 2 + 'px';
 	      } else {
 	        menu.style.left = event.pageX - 2 + 'px';
 	      }
 
-	      if (this.menuHeight + event.pageY >= window.innerHeight) {
-	        menu.style.top = event.pageY - this.menuHeight + 2 + 'px';
+	      if (menuHeight.value + event.pageY >= window.innerHeight) {
+	        menu.style.top = event.pageY - menuHeight.value + 2 + 'px';
 	      } else {
 	        menu.style.top = event.pageY - 2 + 'px';
 	      }
 
 	      menu.classList.add('vue-simple-context-menu--active');
-	    },
-	    hideContextMenu: function hideContextMenu() {
-	      var element = document.getElementById(this.elementId);
+	    };
+
+	    var hideContextMenu = function () {
+	      var element = document.getElementById(props.elementId);
 	      if (element) {
 	        element.classList.remove('vue-simple-context-menu--active');
-	        this.$emit('menu-closed');
+	        emit('menu-closed');
 	      }
-	    },
-	    onClickOutside: function onClickOutside() {
-	      this.hideContextMenu();
-	    },
-	    optionClicked: function optionClicked(option) {
-	      this.hideContextMenu();
-	      this.$emit('option-clicked', {
-	        item: this.item,
+	    };
+
+	    var onClickOutside = function () {
+	      hideContextMenu();
+	    };
+
+	    var optionClicked = function (option) {
+	      hideContextMenu();
+	      emit('option-clicked', {
+	        item: item.value,
 	        option: option,
 	      });
-	    },
-	    onEscKeyRelease: function onEscKeyRelease(event) {
+	    };
+
+	    var onEscKeyRelease = function (event) {
 	      if (event.keyCode === 27) {
-	        this.hideContextMenu();
+	        hideContextMenu();
 	      }
-	    },
-	  },
-	  mounted: function mounted() {
-	    document.body.addEventListener('keyup', this.onEscKeyRelease);
-	  },
-	  beforeUnmount: function beforeUnmount() {
-	    document.removeEventListener('keyup', this.onEscKeyRelease);
+	    };
+
+	    return {
+	      item: item,
+	      menuHeight: menuHeight,
+	      menuWidth: menuWidth,
+	      showMenu: showMenu,
+	      hideContextMenu: hideContextMenu,
+	      onClickOutside: onClickOutside,
+	      optionClicked: optionClicked,
+	      onEscKeyRelease: onEscKeyRelease,
+	    }
 	  },
 	};
 
@@ -115,7 +134,7 @@
 	      (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList($props.options, function (option, index) {
 	        return (vue.openBlock(), vue.createElementBlock("li", {
 	          key: index,
-	          onClick: vue.withModifiers(function ($event) { return ($options.optionClicked(option)); }, ["stop"]),
+	          onClick: vue.withModifiers(function ($event) { return ($setup.optionClicked(option)); }, ["stop"]),
 	          class: vue.normalizeClass(["vue-simple-context-menu__item", [option.class, option.type === 'divider' ? 'vue-simple-context-menu__divider' : '']])
 	        }, [
 	          vue.createElementVNode("span", {
@@ -124,13 +143,13 @@
 	        ], 10 /* CLASS, PROPS */, _hoisted_2))
 	      }), 128 /* KEYED_FRAGMENT */))
 	    ], 8 /* PROPS */, _hoisted_1)), [
-	      [_directive_click_outside, $options.onClickOutside]
+	      [_directive_click_outside, $setup.onClickOutside]
 	    ])
 	  ]))
 	}
 
 	script.render = render;
-	script.__file = "src/vue-simple-context-menu.vue";
+	script.__file = "src/vue3-context-menu.vue";
 
 	// Import vue component
 
@@ -138,7 +157,7 @@
 	  if (install.installed) { return; }
 
 	  install.installed = true;
-	  app.component('VueSimpleContextMenu', script);
+	  app.component('Vue3ContextMenu', script);
 	}
 
 	var plugin = { install: install };

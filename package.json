@@ -1,10 +1,10 @@
 {
-  "author": "John Datserakis <johndatserakis@gmail.com>",
+  "author": "Maing Chomrurn <maingchomrurn76@gmail.com>",
   "browser": {
-    "./sfc": "src/vue-simple-context-menu.vue"
+    "./sfc": "src/vue3-context-menu.vue"
   },
   "bugs": {
-    "url": "https://github.com/johndatserakis/vue-simple-context-menu/issues"
+    "url": "https://github.com/mrchomrurn/vue3-context-menu/pulls"
   },
   "dependencies": {
     "click-outside-vue3": "^4.0.1"
@@ -61,27 +61,27 @@
     "click"
   ],
   "license": "MIT",
-  "main": "dist/vue-simple-context-menu.umd.js",
-  "module": "dist/vue-simple-context-menu.esm.js",
-  "name": "vue-simple-context-menu",
+  "main": "dist/vue3-context-menu.umd.js",
+  "module": "dist/vue3-context-menu.esm.js",
+  "name": "vue3-context-menu",
   "peerDependencies": {
     "vue": "^3.2.31"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/johndatserakis/vue-simple-context-menu.git"
+    "url": "git+https://github.com/mrchomrurn/vue3-context-menu.git"
   },
   "scripts": {
     "build": "npm run test && npm run build:example && npm run build:library",
-    "build:es": "rollup --config rollup.config.js --format es --file dist/vue-simple-context-menu.esm.js",
+    "build:es": "rollup --config rollup.config.js --format es --file dist/vue3-context-menu.esm.js",
     "build:example": "rimraf docs && vite build",
     "build:library": "rimraf dist && npm run build:umd & npm run build:es & npm run build:umd & npm run build:unpkg",
-    "build:umd": "rollup --config rollup.config.js --format umd --file dist/vue-simple-context-menu.umd.js",
-    "build:unpkg": "rollup --config rollup.config.js --format iife --file dist/vue-simple-context-menu.min.js",
+    "build:umd": "rollup --config rollup.config.js --format umd --file dist/vue3-context-menu.umd.js",
+    "build:unpkg": "rollup --config rollup.config.js --format iife --file dist/vue3-context-menu.min.js",
     "test": "jest",
     "dev": "vite"
   },
   "sideEffects": false,
-  "unpkg": "dist/vue-simple-context-menu.min.js",
+  "unpkg": "dist/vue3-context-menu.min.js",
   "version": "4.0.4"
 }

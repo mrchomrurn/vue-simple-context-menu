@@ -19,7 +19,7 @@ import { getCurrentInstance, onMounted, onUnmounted, ref, watch } from 'vue';
 import vClickOutside from 'click-outside-vue3';
 
 export default {
-  name: 'VueSimpleContextMenu',
+  name: 'Vue3ContextMenu',
   props: {
     modelValue: Boolean,
     elementId: {
