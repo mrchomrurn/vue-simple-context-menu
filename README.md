@@ -3,14 +3,6 @@ Thanks to  [@johndatserakis](https://github.com/johndatserakis). This package is
 
 Simple context-menu component built for Vue. Works well with both left and right clicks. Nothing too fancy, just works and is simple to use.
 
-<p align="left">
-  <a href="https://www.npmjs.com/package/vue-simple-context-menu"><img src="https://img.shields.io/npm/v/vue-simple-context-menu.svg" alt="NPM Version"></a>
-  <a href="https://www.npmjs.com/package/vue-simple-context-menu"><img src="https://img.shields.io/npm/dm/vue-simple-context-menu.svg" alt="NPM Downloads"></a>
-  <a href="http://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
-  <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fjohndatserakis%2Fvue-simple-context-menu&text=Check%20out%20vue-simple-context-menu%20on%20GitHub&via=johndatserakis">
-  <img src="https://img.shields.io/twitter/url/https/github.com/johndatserakis/vue-simple-context-menu.svg?style=social" alt="Tweet"></a>
-</p>
-
 ## Vue 3 Support
 
 Vue 3 is supported from `v4.0.0` and beyond (current `master`). To use `vue-simple-context-menu` with Vue 2, use `v3.4.2`.
@@ -29,6 +21,7 @@ A nice feature that comes baked in is the menu placement after a click - it sits
 
 ## Usage
 
+GLOBAL Usage
 ```js
 import { createApp } from 'vue';
 import VueSimpleContextMenu from 'vue-simple-context-menu';
@@ -144,10 +137,6 @@ yarn build
 ## Other
 
 Go ahead and fork the project! Submit an issue if needed. Have fun!
-
-## Thank You
-
-Influenced by [Lucas Calazans](https://codepen.io/lucascalazans)'s [pen](https://codepen.io/lucascalazans/pen/ALvVVw). Go ahead and check out his other work.
 
 ## License
 
