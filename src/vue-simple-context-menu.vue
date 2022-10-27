@@ -15,12 +15,13 @@
 </template>
 
 <script>
-import { getCurrentInstance } from 'vue';
+import { getCurrentInstance, onMounted, onUnmounted, ref, watch } from 'vue';
 import vClickOutside from 'click-outside-vue3';
 
 export default {
   name: 'VueSimpleContextMenu',
   props: {
+    modelValue: Boolean,
     elementId: {
       type: String,
       default: () => {
@@ -36,72 +37,86 @@ export default {
   directives: {
     'click-outside': vClickOutside.directive,
   },
-  data() {
-    return {
-      item: null,
-      menuHeight: null,
-      menuWidth: null,
-    };
-  },
-  methods: {
-    showMenu(event, item) {
-      this.item = item;
+  setup(props, { emit }) {
+    const item = ref(null)
+    const menuHeight = ref(null)
+    const menuWidth = ref(null)
 
-      const menu = document.getElementById(this.elementId);
+    onMounted(() => {
+      document.body.addEventListener('keyup', onEscKeyRelease);
+    })
+
+    onUnmounted(() => {
+      document.removeEventListener('keyup', onEscKeyRelease);
+    })
+
+    const showMenu = (event, item) => {
+      item.value = item;
+
+      const menu = document.getElementById(props.elementId);
       if (!menu) {
         return;
       }
 
-      if (!this.menuWidth || !this.menuHeight) {
+      if (!menuWidth.value || !menuHeight.value) {
         menu.style.visibility = 'hidden';
         menu.style.display = 'block';
-        this.menuWidth = menu.offsetWidth;
-        this.menuHeight = menu.offsetHeight;
+        menuWidth.value = menu.offsetWidth;
+        menuHeight.value = menu.offsetHeight;
         menu.removeAttribute('style');
       }
 
-      if (this.menuWidth + event.pageX >= window.innerWidth) {
-        menu.style.left = event.pageX - this.menuWidth + 2 + 'px';
+      if (menuWidth.value + event.pageX >= window.innerWidth) {
+        menu.style.left = event.pageX - menuWidth.value + 2 + 'px';
       } else {
         menu.style.left = event.pageX - 2 + 'px';
       }
 
-      if (this.menuHeight + event.pageY >= window.innerHeight) {
-        menu.style.top = event.pageY - this.menuHeight + 2 + 'px';
+      if (menuHeight.value + event.pageY >= window.innerHeight) {
+        menu.style.top = event.pageY - menuHeight.value + 2 + 'px';
       } else {
         menu.style.top = event.pageY - 2 + 'px';
       }
 
       menu.classList.add('vue-simple-context-menu--active');
-    },
-    hideContextMenu() {
-      const element = document.getElementById(this.elementId);
+    }
+
+    const hideContextMenu = () => {
+      const element = document.getElementById(props.elementId);
       if (element) {
         element.classList.remove('vue-simple-context-menu--active');
-        this.$emit('menu-closed');
+        emit('menu-closed');
       }
-    },
-    onClickOutside() {
-      this.hideContextMenu();
-    },
-    optionClicked(option) {
-      this.hideContextMenu();
-      this.$emit('option-clicked', {
-        item: this.item,
+    }
+
+    const onClickOutside = () => {
+      hideContextMenu();
+    }
+
+    const optionClicked = (option) => {
+      hideContextMenu();
+      emit('option-clicked', {
+        item: item.value,
         option: option,
       });
-    },
-    onEscKeyRelease(event) {
+    }
+
+    const onEscKeyRelease = (event) => {
       if (event.keyCode === 27) {
-        this.hideContextMenu();
+        hideContextMenu()
       }
-    },
-  },
-  mounted() {
-    document.body.addEventListener('keyup', this.onEscKeyRelease);
-  },
-  beforeUnmount() {
-    document.removeEventListener('keyup', this.onEscKeyRelease);
+    }
+
+    return {
+      item,
+      menuHeight,
+      menuWidth,
+      showMenu,
+      hideContextMenu,
+      onClickOutside,
+      optionClicked,
+      onEscKeyRelease,
+    }
   },
 };
 </script>
