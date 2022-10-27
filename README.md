@@ -1,5 +1,6 @@
 # vue-simple-context-menu
 Thanks to  [@johndatserakis](https://github.com/johndatserakis). This package is a forked from johndatserakis/vue-simple-context-menu
+
 Simple context-menu component built for Vue. Works well with both left and right clicks. Nothing too fancy, just works and is simple to use.
 
 <p align="left">
@@ -9,11 +10,6 @@ Simple context-menu component built for Vue. Works well with both left and right
   <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fjohndatserakis%2Fvue-simple-context-menu&text=Check%20out%20vue-simple-context-menu%20on%20GitHub&via=johndatserakis">
   <img src="https://img.shields.io/twitter/url/https/github.com/johndatserakis/vue-simple-context-menu.svg?style=social" alt="Tweet"></a>
 </p>
-
-- [Demo](https://johndatserakis.github.io/vue-simple-context-menu/)
-- [GitHub](https://github.com/johndatserakis/vue-simple-context-menu)
-- [npm](https://www.npmjs.com/package/vue-simple-context-menu)
-- [StackBlitz](https://stackblitz.com/edit/vue-chj3sg?file=src/App.vue)
 
 ## Vue 3 Support
 
